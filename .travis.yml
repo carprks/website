@@ -1,0 +1,30 @@
+sudo: required
+language: node
+notifications:
+  slack:
+    rooms:
+      - carprk:GwNndSzXdf0hncxr2I5cwwsn#builds
+      - carprk:GwNndSzXdf0hncxr2I5cwwsn#website
+    on_success: always
+    on_cancel: always
+    on_failure: always
+    on_start: always
+    on_error: always
+    on_pull_requests: true
+services:
+  - docker
+go:
+  - 1.12.5
+env:
+  - GO111MODULE=on
+install:
+  - pip install --user awscli
+script:
+  - go mod download
+  - go get -u golang.org/x/lint/golint
+  - golint -set_exit_status ./...
+  - go build .
+after_script:
+  - bash .travis-deploy/docker.sh
+  - bash .travis-deploy/cloud.sh
+  - bash .travis-deploy/data.sh
