@@ -214,3 +214,5 @@ Pods/
 main
 cover/
 coverage.html
+build/
+.next/
