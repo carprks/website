@@ -1,0 +1,256 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Website"
+
+Parameters:
+  ServiceName:
+    Type: String
+  Environment:
+    Type: String
+  DomainName:
+    Type: String
+  AltDomainName:
+    Type: String
+  CertificateArn:
+    Type: String
+  DNSZoneName:
+    Type: String
+  BuildBucket:
+    Type: String
+  BuildKey:
+    Type: String
+  ImageURI:
+    Type: String
+  Priority:
+    Type: Number
+    Default: 1
+  DesiredCount:
+    Type: Number
+    Default: 1
+  LoadBalancerAddress:
+    Type: String
+  LoadBalancerListenerArn:
+    Type: String
+  VPCId:
+    Type: String
+  SubnetOne:
+    Type: String
+  SubnetTwo:
+    Type: String
+  SubnetThree:
+    Type: String
+  Cluster:
+    Type: String
+    Default: carprk
+
+Resources:
+  PrimaryRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Ref DomainName
+      Type: A
+      HostedZoneId: !Ref DNSZoneName
+      Weight: 1
+      SetIdentifier: !Join ['-', [!Ref ServiceName, recordset, !Ref Environment, !Ref 'AWS::Region']]
+      AliasTarget:
+        HostedZoneId: !Ref CloudFront
+        DNSName: !Ref CloudFront
+        EvaluateHealthCheck: false
+
+
+  CloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref DomainName
+          - !Ref AltDomainName
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+            - PUT
+            - POST
+            - PATCH
+            - DELETE
+          Compress: true
+          DefaultTTL: 86400
+          MaxTTL: 31536000
+          MinTTL: 0
+          PathPattern: '*'
+          ViewerProtocolPolicy: redirect-to-https
+          TargetOriginId: !Join ['-', [!Ref ServiceName, cloudfront, !Ref Environment]]
+          ForwardValues:
+            - QueryString: false
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+          - DomainName: !Ref LoadBalancerAddress
+            Id: !Join ['-', [!Ref ServiceName, cloudfront, !Ref Environment]]
+
+  TaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ['-', [!Ref ServiceName, taskrole, !Ref Environment]]
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+              Action:
+                - sts:AssumeRole
+      Policies:
+        - PolicyName: ecs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecr:GetAuthorizationToken
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - s3:Get*
+                  - s3:List*
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - iam:PassRole
+                Resource: '*'
+                Condition:
+                  StringLike:
+                    iam:PassedToService:
+                      - application-autoscaling.amazonaws.com
+                      - dax.amazonaws.com
+              - Effect: Allow
+                Action:
+                  - dax:*
+                  - application-autoscaling:*
+                  - cloudwatch:*
+                  - iam:GetRole
+                  - iam:ListRoles
+                  - resource-grouos:*
+                    - tag:GetResources*
+                Resource: '*'
+
+  WebsiteTask:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefintiions:
+        - Environment:
+            - Name: PORT
+              Value: 80
+            - Name: SERVICE_NAME
+              Value: !Ref ServiceName
+          Essential: true
+          HealthCheck:
+            Command:
+              - CMD-SHELL
+              - curl --silet --fail localhost/probe || exit 1
+            Interval: 60
+            Retries: 10
+            StartPeriod: 60
+            Timeout: 10
+          Image: !Ref ImageURI
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref CloudwatchLogs
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: 'ecs'
+          PortMappings:
+            - ContainerPort: 80
+              HostPort: 80
+              Protocol: tcp
+          Name: !Ref ServiceName
+      Cpu: 256
+      Memory: 512
+      ExecutionRoleArn: !GetAtt TaskRole.Arn
+      Family: !Ref ServiceName
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn: !GetAtt TaskRole.Arn
+
+  CloudwatchLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Join ['/', ['/ecs', !Ref ServiceName]]
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 30
+      HealthCheckPath: /probe
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 4
+      HealthyThresholdCount: 2
+      TargetType: ip
+      Name: !Join ['-', [!Ref ServiceName, targetgroup, !Ref Environment]]
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 2
+      VpcId: !Ref VPCId
+
+  LoadBalancerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - TargetGroupArn: !Ref TargetGroup
+          Type: forward
+      Conditions:
+        - Field: path-pattern
+          Values:
+            !Sub "/*"
+      ListenerArn: !Ref LoadBalancerListenerArn
+      Priority: !Ref Priority
+
+  SecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Join ['-', [!Ref ServiceName, securitygroup, !Ref Environment]]
+      GroupName: !Join ['-', [!Ref ServiceName, securitygroup, !Ref Environment]]
+      SecurityGroupEgress:
+        - CidrIp: '0.0.0.0/0'
+          IpProtocol: -1
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: '0.0.0.0/0'
+      VpcId: !Ref VPCId
+
+  WebsiteService:
+    Type: AWS::ECS::Service
+    DependsOn: LoadBalancerRule
+    Properties:
+      Cluster: !Ref Cluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimalHealthyPercent: 100
+      DesiredCount: !Ref DesiredCount
+      HealthCheckGracePeriodSeconds: 5
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: !Ref ServiceName
+          ContainerPort: 80
+          TargetGroupArn: !Ref TargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref SecGroup
+          Subnets:
+            - !Ref SubnetOne
+            - !Ref SubnetTwo
+            - !Ref SubnetThree
+      TaskDefinition: !Ref WebsiteTask
+
+
