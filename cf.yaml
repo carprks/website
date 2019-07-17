@@ -46,30 +46,30 @@ Parameters:
     Default: PriceClass_All
 
 Resources:
-#  PrimaryRecordSet:
-#    Type: AWS::Route53::RecordSet
-#    Properties:
-#      Name: !Ref DomainName
-#      Type: A
-#      HostedZoneId: !Ref DNSZoneName
-#      Weight: 1
-#      SetIdentifier: !Join ['-', [!Ref ServiceName, recordset, !Ref Environment, !Ref 'AWS::Region']]
-#      AliasTarget:
-#        HostedZoneId: !Ref CloudFront
-#        DNSName: !Ref CloudFront
-#        EvaluateTargetHealth: false
-#
-#  SecondaryRecordSet:
-#    Type: AWS::Route53::RecordSet
-#    Properties:
-#      Name: !Ref AltDomainName
-#      Type: A
-#      HostedZoneId: !Ref DNSZoneName
-#      Weight: 1
-#      SetIdentifier: !Join ['-', [!Ref ServiceName, alt, recordset, !Ref Environment, !Ref 'AWS::Region']]
-#      AliasTarget:
-#        HostedZoneId: !Ref CloudFront
-#        DNSName: !Ref CloudFront
+  PrimaryRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Ref DomainName
+      Type: A
+      HostedZoneId: !Ref DNSZoneName
+      Weight: 1
+      SetIdentifier: !Join ['-', [!Ref ServiceName, recordset, !Ref Environment, !Ref 'AWS::Region']]
+      AliasTarget:
+        HostedZoneId: !Ref CloudFront
+        DNSName: !Ref CloudFront
+        EvaluateTargetHealth: false
+
+  SecondaryRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Ref AltDomainName
+      Type: A
+      HostedZoneId: !Ref DNSZoneName
+      Weight: 1
+      SetIdentifier: !Join ['-', [!Ref ServiceName, alt, recordset, !Ref Environment, !Ref 'AWS::Region']]
+      AliasTarget:
+        HostedZoneId: !Ref CloudFront
+        DNSName: !Ref CloudFront
 #        EvaluateTargetHealth: false
 
 
@@ -177,7 +177,7 @@ Resources:
           HealthCheck:
             Command:
               - CMD-SHELL
-              - curl --silet --fail localhost/probe || exit 1
+              - curl --silent --fail localhost/probe || exit 1
             Interval: 60
             Retries: 10
             StartPeriod: 60

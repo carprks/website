@@ -14,5 +14,10 @@ COPY pages/ /home/website/pages
 RUN yarn build
 
 # Start Server
-EXPOSE 80
 CMD ["yarn", "start", "-p", "80"]
+
+# Port
+EXPOSE 80
+
+# Healthcheck
+HEALTHCHECK --interval=5s --timeout=2s --retries=12 CMD curl --silent --fail localhost/probe || exit 1
