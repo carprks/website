@@ -242,7 +242,7 @@ Resources:
       Cluster: !Ref Cluster
       DeploymentConfiguration:
         MaximumPercent: 200
-        MinimalHealthyPercent: 100
+        MinimumHealthyPercent: 100
       DesiredCount: !Ref DesiredCount
       HealthCheckGracePeriodSeconds: 5
       LaunchType: FARGATE
