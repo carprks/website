@@ -83,6 +83,10 @@ Resources:
             QueryString: false
         Enabled: true
         HttpVersion: http2
+        ViewerCertificate:
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+          AcmCertificateArn: !Ref CertificateArn
         Origins:
           - CustomOriginConfig:
               HTTPPort: 80
