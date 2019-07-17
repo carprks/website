@@ -84,7 +84,12 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName: !Ref LoadBalancerAddress
+          - CustomOriginConfig:
+              HTTPPort: 80
+              OriginKeepaliveTimeout: 5
+              OriginProtocolPolicy: http-only
+              OriginReadTimeout: 30
+            DomainName: !Ref LoadBalancerAddress
             Id: !Join ['-', [!Ref ServiceName, cloudfront, !Ref Environment]]
 
   TaskRole:
