@@ -46,32 +46,21 @@ Parameters:
     Default: PriceClass_All
 
 Resources:
-  PrimaryRecordSet:
-    Type: AWS::Route53::RecordSet
+  PrimaryDNS:
+    Type: AWS::Route53::RecordSetGroup
     Properties:
-      Name: !Ref DomainName
-      Type: A
       HostedZoneName: !Ref DNSZoneName
-      Weight: 1
-      SetIdentifier: !Join ['-', [!Ref ServiceName, recordset, !Ref Environment, !Ref 'AWS::Region']]
-      AliasTarget:
-        HostedZoneId: !Ref CloudFront
-        DNSName: !Ref CloudFront
-        EvaluateTargetHealth: false
-
-  SecondaryRecordSet:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      Name: !Ref AltDomainName
-      Type: A
-      HostedZoneName: !Ref DNSZoneName
-      Weight: 1
-      SetIdentifier: !Join ['-', [!Ref ServiceName, alt, recordset, !Ref Environment, !Ref 'AWS::Region']]
-      AliasTarget:
-        HostedZoneId: !Ref CloudFront
-        DNSName: !Ref CloudFront
-        EvaluateTargetHealth: false
-
+      RecordSets:
+        - Name: !Ref DomainName
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt CloudFront.DomainName
+        - Name: !Ref AltDomainName
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt CloudFront.DomainName
 
   CloudFront:
     Type: AWS::CloudFront::Distribution
