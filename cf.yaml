@@ -216,7 +216,7 @@ Resources:
       Conditions:
         - Field: path-pattern
           Values:
-            !Sub "/*"
+            - "/*"
       ListenerArn: !Ref LoadBalancerListenerArn
       Priority: !Ref Priority
 
