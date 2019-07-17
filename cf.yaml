@@ -59,6 +59,19 @@ Resources:
         DNSName: !Ref CloudFront
         EvaluateTargetHealth: false
 
+  SecondaryRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: !Ref AltDomainName
+      Type: A
+      HostedZoneId: !Ref DNSZoneName
+      Weight: 1
+      SetIdentifier: !Join ['-', [!Ref ServiceName, alt, recordset, !Ref Environment, !Ref 'AWS::Region']]
+      AliasTarget:
+        HostedZoneId: !Ref CloudFront
+        DNSName: !Ref CloudFront
+        EvaluateTargetHealth: false
+
 
   CloudFront:
     Type: AWS::CloudFront::Distribution
