@@ -80,7 +80,7 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
           TargetOriginId: !Join ['-', [!Ref ServiceName, cloudfront, !Ref Environment]]
           ForwardedValues:
-            - QueryString: false
+            QueryString: false
         Enabled: true
         HttpVersion: http2
         Origins:
