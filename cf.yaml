@@ -41,6 +41,9 @@ Parameters:
   Cluster:
     Type: String
     Default: carprk
+  Price:
+    Type: String
+    Default: PriceClass_All
 
 Resources:
   PrimaryRecordSet:
