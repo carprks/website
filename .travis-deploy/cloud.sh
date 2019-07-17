@@ -9,7 +9,7 @@ cloudFormationInProgress()
     if [[ -z "$STACK_ROLLBACK" ]] || [[ "$STACK_ROLLBACK" == "" ]]; then
         echo ""$STACK_NAME" not in progress"
     else
-        echo ""$STACK_NAME" in progress"
+        echo ""$STACK_NAME" cloudformation in progress"
         sleep 30
         cloudFormationInProgress
     fi
