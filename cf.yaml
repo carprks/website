@@ -151,7 +151,7 @@ Resources:
   WebsiteTask:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      ContainerDefintiions:
+      ContainerDefinitions:
         - Environment:
             - Name: PORT
               Value: 80
