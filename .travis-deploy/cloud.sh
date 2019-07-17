@@ -51,7 +51,7 @@ cloudFormation()
                 ParameterKey=BuildBucket,ParameterValue="$S3_FOLDER" \
                 ParameterKey=DomainName,ParameterValue="$DNS_ZONE_NAME" \
                 ParameterKey=AltDomainName,ParameterValue="www"."$DNS_ZONE_NAME" \
-                ParameterKey=CertificateARN,ParameterValue="$CERTIFICATE_ARN" \
+                ParameterKey=CertificateArn,ParameterValue="$CERTIFICATE_ARN" \
                 ParameterKey=DNSZoneName,ParameterValue="$DNS_ZONE_NAME". \
                 ParameterKey=ImageURI,ParameterValue=$AWS_ECR/$SERVICE_NAME:$TRAVIS_COMMIT \
                 ParameterKey=LoadBalancerAddress,ParameterValue=$AWS_LOADBALANCER_ADDRESS \
@@ -73,7 +73,7 @@ cloudFormation()
                 ParameterKey=BuildBucket,ParameterValue="$S3_FOLDER" \
                 ParameterKey=DomainName,ParameterValue="$DNS_ZONE_NAME" \
                 ParameterKey=AltDomainName,ParameterValue="www"."$DNS_ZONE_NAME" \
-                ParameterKey=CertificateARN,ParameterValue="$CERTIFICATE_ARN" \
+                ParameterKey=CertificateArn,ParameterValue="$CERTIFICATE_ARN" \
                 ParameterKey=DNSZoneName,ParameterValue="$DNS_ZONE_NAME". \
                 ParameterKey=ImageURI,ParameterValue=$AWS_ECR/$SERVICE_NAME:$TRAVIS_COMMIT \
                 ParameterKey=LoadBalancerAddress,ParameterValue=$AWS_LOADBALANCER_ADDRESS \
