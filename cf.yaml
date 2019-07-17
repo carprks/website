@@ -135,8 +135,8 @@ Resources:
                   - cloudwatch:*
                   - iam:GetRole
                   - iam:ListRoles
-                  - resource-grouos:*
-                    - tag:GetResources*
+                  - resource-groups:*
+                  - tag:GetResources*
                 Resource: '*'
 
   WebsiteTask:
