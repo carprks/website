@@ -55,7 +55,7 @@ Resources:
       Weight: 1
       SetIdentifier: !Join ['-', [!Ref ServiceName, recordset, !Ref Environment, !Ref 'AWS::Region']]
       AliasTarget:
-        HostedZoneId: Z2FDTNDATAQYW2
+        HostedZoneId: !Ref CloudFront
         DNSName: !Ref CloudFront
         EvaluateTargetHealth: false
 
@@ -68,7 +68,7 @@ Resources:
       Weight: 1
       SetIdentifier: !Join ['-', [!Ref ServiceName, alt, recordset, !Ref Environment, !Ref 'AWS::Region']]
       AliasTarget:
-        HostedZoneId: Z2FDTNDATAQYW2
+        HostedZoneId: !Ref CloudFront
         DNSName: !Ref CloudFront
         EvaluateTargetHealth: false
 
