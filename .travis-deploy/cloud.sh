@@ -49,8 +49,8 @@ cloudFormation()
                 ParameterKey=BuildKey,ParameterValue=$SERVICE_NAME/"$TRAVIS_BUILD_ID".zip \
                 ParameterKey=Environment,ParameterValue="$DEPLOY_ENV"  \
                 ParameterKey=BuildBucket,ParameterValue="$S3_FOLDER" \
-                ParameterKey=DomainName,ParameterValue="$SERVICE_NAME"."$DNS_ZONE_NAME" \
-                ParameterKey=AuthorizerARN,ParameterValue="$AUTHORIZER_ARN" \
+                ParameterKey=DomainName,ParameterValue="$DNS_ZONE_NAME" \
+                ParameterKey=AltDomainName,ParameterValue="www"."$DNS_ZONE_NAME" \
                 ParameterKey=CertificateARN,ParameterValue="$CERTIFICATE_ARN" \
                 ParameterKey=DNSZoneName,ParameterValue="$DNS_ZONE_NAME". \
                 ParameterKey=ImageURI,ParameterValue=$AWS_ECR/$SERVICE_NAME:$TRAVIS_COMMIT \
@@ -71,8 +71,8 @@ cloudFormation()
                 ParameterKey=BuildKey,ParameterValue=$SERVICE_NAME/"$TRAVIS_BUILD_ID".zip \
                 ParameterKey=Environment,ParameterValue="$DEPLOY_ENV" \
                 ParameterKey=BuildBucket,ParameterValue="$S3_FOLDER" \
-                ParameterKey=DomainName,ParameterValue="$SERVICE_NAME"."$DNS_ZONE_NAME" \
-                ParameterKey=AuthorizerARN,ParameterValue="$AUTHORIZER_ARN" \
+                ParameterKey=DomainName,ParameterValue="$DNS_ZONE_NAME" \
+                ParameterKey=AltDomainName,ParameterValue="www"."$DNS_ZONE_NAME" \
                 ParameterKey=CertificateARN,ParameterValue="$CERTIFICATE_ARN" \
                 ParameterKey=DNSZoneName,ParameterValue="$DNS_ZONE_NAME". \
                 ParameterKey=ImageURI,ParameterValue=$AWS_ECR/$SERVICE_NAME:$TRAVIS_COMMIT \
@@ -98,7 +98,6 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
     AWS_SECRET_ACCESS_KEY=$DEV_AWS_SECRET_ACCESS_KEY
     DNS_ZONE_NAME=$DEV_DNS_ZONE_NAME
     CERTIFICATE_ARN=$DEV_CERTIFICATE_ARN
-    AUTHORIZER_ARN=$DEV_AUTHORIZER_ARN
     AWS_ECR=$DEV_AWS_ECR
     AWS_VPCID=$DEV_AWS_VPCID
     AWS_LOADBALANCER_ADDRESS=$DEV_AWS_LOADBALANCER_ADDRESS
@@ -122,7 +121,6 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
             AWS_SECRET_ACCESS_KEY=$LIVE_AWS_SECRET_ACCESS_KEY
             DNS_ZONE_NAME=$LIVE_DNS_ZONE_NAME
             CERTIFICATE_ARN=$LIVE_CERTIFICATE_ARN
-            AUTHORIZER_ARN=$LIVE_AUTHORIZER_ARN
             AWS_ECR=$LIVE_AWS_ECR
             AWS_VPCID=$LIVE_AWS_VPCID
             AWS_LOADBALANCER_ADDRESS=$LIVE_AWS_LOADBALANCER_ADDRESS

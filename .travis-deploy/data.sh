@@ -11,6 +11,7 @@ injectIt()
 #        AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY aws dynamodb put-item --table-name $TABLE_NAME --item "{\"authKey\":{\"S\":\"${SPL[0]}\"},\"expires\":{\"N\":\"${SPL[1]}\"},\"service\":{\"S\":\"${SPL[2]}\"}}" --region $AWS_REGION
 #        IFS=' '
 #    done
+    echo "done"
 }
 
 
