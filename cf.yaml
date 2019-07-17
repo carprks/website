@@ -77,10 +77,9 @@ Resources:
           DefaultTTL: 86400
           MaxTTL: 31536000
           MinTTL: 0
-          PathPattern: '*'
           ViewerProtocolPolicy: redirect-to-https
           TargetOriginId: !Join ['-', [!Ref ServiceName, cloudfront, !Ref Environment]]
-          ForwardValues:
+          ForwardedValues:
             - QueryString: false
         Enabled: true
         HttpVersion: http2
@@ -99,8 +98,8 @@ Resources:
             Principal:
               Service:
                 - ecs-tasks.amazonaws.com
-              Action:
-                - sts:AssumeRole
+            Action:
+               - sts:AssumeRole
       Policies:
         - PolicyName: ecs
           PolicyDocument:
