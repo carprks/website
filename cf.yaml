@@ -57,7 +57,7 @@ Resources:
       AliasTarget:
         HostedZoneId: !Ref CloudFront
         DNSName: !Ref CloudFront
-        EvaluateHealthCheck: false
+        EvaluateTargetHealth: false
 
 
   CloudFront:
