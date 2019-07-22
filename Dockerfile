@@ -1,23 +1,57 @@
-FROM node:12.6
+######### Backend Build #########
+FROM golang:1.12 AS backend_build
+RUN mkdir -p /home/main
+WORKDIR /home/main
 
-RUN mkdir -p /home/website
-WORKDIR /home/website
+# Dependencies
+ENV GO111MODULE=on
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
-# Get Deps
-COPY yarn.lock .
-COPY package.json .
-RUN yarn
+# ENV
+ARG SERVICE_NAME=website
+ARG SERVICE_DEPENDENCIES
 
-# Build server
-COPY components/ /home/website/components
-COPY pages/ /home/website/pages
-RUN yarn build
+# Copy the rest
+COPY main.go .
+COPY backend backend
 
-# Start Server
-CMD ["yarn", "start", "-p", "80"]
+# Build
+ARG build
+ARG version
+RUN CGO_ENABLED=0 go build -ldflags="-s -w -X main.Version=${version} -X main.Build=${build}" -o ${SERVICE_NAME}
+RUN cp ${SERVICE_NAME} /
+
+
+######### Distribution #########
+FROM alpine
+ARG SERVICE_NAME
+RUN apk update && apk upgrade
+RUN apk add ca-certificates && update-ca-certificates
+RUN apk add --update tzdata
+RUN apk add curl
+RUN rm -rf /var/cache/apk/*
+
+# Move from builds
+COPY --from=backend_build /${SERVICE_NAME} /home/
+COPY frontend /home/frontend
+
+# Set Timezone
+ENV TZ=Europe/London
+
+# EntryPoint Create
+WORKDIR /home
+ENV _SERVICENAME=${SERVICE_NAME}
+RUN echo "#!/usr/bin/env bash" > ./entrypoint.sh
+RUN echo "./${SERVICE_NAME}" >> ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
+# EntryPoint
+ENTRYPOINT ["sh", "./entrypoint.sh"]
+
+# HealthCheck
+HEALTHCHECK --interval=5s --timeout=2s --retries=12 CMD curl --silent --fail localhost/probe || exit 1
 
 # Port
 EXPOSE 80
-
-# Healthcheck
-HEALTHCHECK --interval=5s --timeout=2s --retries=12 CMD curl --silent --fail localhost/probe || exit 1

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+        <title>CarPark Ninja | {{.Title}}</title>
+        <link rel="stylesheet" type="text/css" href="./css/general.css" />
+        <link rel="stylesheet" type="text/css" href="./css/{{.Page}}.css" />
+    </head>
+    <body>
+        <header class="siteHeader">
+            <a href="/" title="Home" class="homeLink">
+                <span class="brand">
+                    <img src="/assets/siteLogo.png" class="siteLogo" />
+                    <span class="brandStart">CarPark</span>
+                    Ninja
+                </span>
+            </a>
+            <nav class="navLinks">
+                {{range .Links}}
+                    <a href="/{{.}}" title="{{.}}" class="navLink">
+                        {{.}}
+                    </a>
+                {{end}}
+                <div class="accountButtons">
+                    {{if .LoggedIn}}
+                        <a class="navLink authLink red" href="/logout">Logout</a>
+                    {{else}}
+                        <a class="navLink authLink green" href="/register">Register</a>
+                        <a class="navLink authLink grey" href="/login">Login</a>
+                    {{end}}
+                </div>
+            </nav>
+        </header>
+        <section id="app">
+            {{template "content"}}
+        </section>
+        <footer class="siteFooter">
+            <div class="container footer">
+                <span class="brand">
+                    <span class="brandStart">
+                        CarPark
+                    </span>
+                    Ninja
+                </span>
+                <ul class="links">
+                    <li>
+                        <a href="/contact">Contact Us</a>
+                    </li>
+                    <li>
+                        <a href="/privacy">Privacy Policy</a>
+                    </li>
+                </ul>
+                <span class="copy">
+                    Copyright &copy; CarPark Ninja 2019
+                </span>
+            </div>
+        </footer>
+    </body>
+</html>

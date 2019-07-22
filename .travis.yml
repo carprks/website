@@ -1,7 +1,7 @@
 sudo: required
-language: node_js
-node_js:
-  - "12.6"
+language: go
+go:
+  - 1.12.7
 notifications:
   slack:
     rooms:
@@ -15,10 +15,15 @@ notifications:
     on_pull_requests: true
 services:
   - docker
+env:
+  - GO111MODULE=on
 install:
   - pip install --user awscli
 script:
-  - yarn test
+  - go mod download
+  - go get -u golang.org/x/lint/golint
+  - golint -set_exit_status ./...
+  - go build .
 after_script:
   - bash .travis-deploy/docker.sh
   - bash .travis-deploy/cloud.sh
