@@ -5,10 +5,10 @@ import (
 )
 
 // PrivacyHandler ...
-func PrivacyHandler(w http.ResponseWriter, r *http.Request) {
+func CompaniesHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, PageData{
-		Title: "Privacy",
-		Page: "privacy",
+		Title: "Companies",
+		Page: "companies",
 		LoggedIn: false,
 	})
 }

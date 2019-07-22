@@ -7,12 +7,24 @@ import (
 	"os"
 )
 
+// Link structure
+type Link struct {
+	Title string
+	Link string
+}
+
+// Links structure
+type Links struct {
+	Navigation []Link
+	Footer []Link
+}
+
 // PageData structure
 type PageData struct {
 	Title string
 	Page string
 	LoggedIn bool
-	Links []string
+	Links Links
 }
 
 // RenderTemplate ...
@@ -22,12 +34,43 @@ func RenderTemplate(w http.ResponseWriter, data PageData) {
 		fmt.Println(fmt.Sprintf("Working Dir Err: %v", err))
 	}
 
-	data.Links = []string{
-		"carparks",
-		"pricing",
-		"companies",
-		"app",
-		"about",
+	data.Links = Links{
+		Navigation: []Link{
+			{
+				Title: "CarParks",
+				Link: "carparks",
+			},
+			{
+				Title: "Pricing",
+				Link: "pricing",
+			},
+			{
+				Title: "Companies",
+				Link: "companies",
+			},
+			{
+				Title: "App",
+				Link: "app",
+			},
+			{
+				Title: "About",
+				Link: "about",
+			},
+		},
+		Footer: []Link{
+			{
+				Title: "Contact Us",
+				Link: "contact",
+			},
+			{
+				Title: "About Us",
+				Link: "about",
+			},
+			{
+				Title: "Privacy Policy",
+				Link: "privacy",
+			},
+		},
 	}
 
 	// layout

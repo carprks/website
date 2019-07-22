@@ -15,9 +15,9 @@
                 </span>
             </a>
             <nav class="navLinks">
-                {{range .Links}}
-                    <a href="/{{.}}" title="{{.}}" class="navLink">
-                        {{.}}
+                {{range .Links.Navigation}}
+                    <a href="/{{.Link}}" title="{{.Title}}" class="navLink">
+                        {{.Title}}
                     </a>
                 {{end}}
                 <div class="accountButtons">
@@ -42,12 +42,11 @@
                     Ninja
                 </span>
                 <ul class="links">
-                    <li>
-                        <a href="/contact">Contact Us</a>
-                    </li>
-                    <li>
-                        <a href="/privacy">Privacy Policy</a>
-                    </li>
+                    {{range .Links.Footer}}
+                        <li>
+                            <a href="/{{.Link}}">{{.Title}}</a>
+                        </li>
+                    {{end}}
                 </ul>
                 <span class="copy">
                     Copyright &copy; CarPark Ninja 2019

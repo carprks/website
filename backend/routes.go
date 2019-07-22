@@ -32,6 +32,39 @@ func Routes() chi.Router {
 	// Privacy
 	router.Get("/privacy", website.PrivacyHandler)
 
+	// App
+	router.Get("/app", website.AppHandler)
+
+	// Companies
+	router.Get("/companies", website.CompaniesHandler)
+
+	// About
+	router.Get("/about", website.AboutHandler)
+
+	// Contact
+	router.Route("/contact", func(r chi.Router) {
+		r.Get("/", website.ContactHandler)
+		r.Post("/", website.ContactHandler)
+	})
+
+	// Pricing
+	router.Route("/pricing", func(r chi.Router) {
+		r.Get("/", website.PricingHandler)
+		r.Post("/", website.PricingHandler)
+	})
+
+	// Register
+	router.Route("/register", func(r chi.Router) {
+		r.Get("/", website.RegisterHandler)
+		r.Post("/", website.RegisterHandler)
+	})
+
+	// Login
+	router.Route("/login", func(r chi.Router) {
+		r.Get("/", website.LoginHandler)
+		r.Post("/", website.LoginHandler)
+	})
+
 	// CarParks
 	router.Route("/carparks", func(r chi.Router) {
 		r.Get("/", website.CarParksHandler)
