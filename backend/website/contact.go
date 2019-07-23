@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-// PrivacyHandler ...
+// ContactHandler ...
 func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, PageData{
 		Title: "Contact",

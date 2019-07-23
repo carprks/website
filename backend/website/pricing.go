@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-// PrivacyHandler ...
+// PricingHandler ...
 func PricingHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, PageData{
 		Title: "Pricing",

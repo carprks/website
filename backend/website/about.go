@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-// PrivacyHandler ...
+// AboutHandler ...
 func AboutHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, PageData{
 		Title: "About",

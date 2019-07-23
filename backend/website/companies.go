@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-// PrivacyHandler ...
+// CompaniesHandler ...
 func CompaniesHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, PageData{
 		Title: "Companies",

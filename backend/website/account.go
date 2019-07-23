@@ -13,7 +13,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// RegisterHandler
+// RegisterHandler ...
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, PageData{
 		Title: "Register",
