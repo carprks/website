@@ -20,9 +20,8 @@ COPY backend backend
 # Build
 ARG build
 ARG version
-RUN CGO_ENABLED=0 go build -ldflags "-w -s -X github.com/carprks/website/backend/website.Version=${VERSION} -X github.com/carprks/website/backend/website.Build=${BUILD}" -o ${SERVICE_NAME} .
+RUN CGO_ENABLED=0 go build -ldflags "-w -s -X github.com/carprks/website/backend/website.Version=${version} -X github.com/carprks/website/backend/website.Build=${build}" -o ${SERVICE_NAME} .
 RUN cp ${SERVICE_NAME} /
-
 
 ######### Distribution #########
 FROM alpine
