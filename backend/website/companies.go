@@ -6,7 +6,7 @@ import (
 
 // CompaniesHandler ...
 func CompaniesHandler(w http.ResponseWriter, r *http.Request) {
-	RenderTemplate(w, PageData{
+	RenderTemplate(w, r, PageData{
 		Title: "Companies",
 		Page: "companies",
 		LoggedIn: false,

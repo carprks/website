@@ -22,6 +22,7 @@
                 {{end}}
                 <div class="accountButtons">
                     {{if .LoggedIn}}
+                        <a class="navLink authLink grey" href="/account">Account</a>
                         <a class="navLink authLink red" href="/logout">Logout</a>
                     {{else}}
                         <a class="navLink authLink green" href="/register">Register</a>
@@ -51,7 +52,14 @@
                 <span class="copy">
                     Copyright &copy; CarPark Ninja 2019
                 </span>
+                <span class="version">
+                    {{.Version}} -- {{.Build}}
+                </span>
             </div>
         </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vuex"></script>
+        <script src="./js/script.js"></script>
     </body>
 </html>

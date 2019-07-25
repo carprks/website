@@ -7,6 +7,11 @@ import (
 	"os"
 )
 
+var (
+	Version string
+	Build string
+)
+
 // Link structure
 type Link struct {
 	Title string
@@ -25,15 +30,22 @@ type PageData struct {
 	Page string
 	LoggedIn bool
 	Links Links
+	Version string
+	Build string
 }
 
 // RenderTemplate ...
-func RenderTemplate(w http.ResponseWriter, data PageData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Working Dir Err: %v", err))
 	}
 
+	// Version and Build
+	data.Version = Version
+	data.Build = Build
+
+	// Navigation
 	data.Links = Links{
 		Navigation: []Link{
 			{
@@ -71,6 +83,10 @@ func RenderTemplate(w http.ResponseWriter, data PageData) {
 				Link: "privacy",
 			},
 		},
+	}
+
+	if checkJWT(r) {
+		data.LoggedIn = true
 	}
 
 	// layout

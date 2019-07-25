@@ -6,7 +6,7 @@ import (
 
 // PricingHandler ...
 func PricingHandler(w http.ResponseWriter, r *http.Request) {
-	RenderTemplate(w, PageData{
+	RenderTemplate(w, r, PageData{
 		Title: "Pricing",
 		Page: "pricing",
 		LoggedIn: false,

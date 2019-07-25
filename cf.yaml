@@ -44,6 +44,10 @@ Parameters:
   Price:
     Type: String
     Default: PriceClass_All
+  AuthKey:
+    Type: String
+  LoginService:
+    Type: String
 
 Resources:
   PrimaryDNS:
@@ -162,6 +166,10 @@ Resources:
               Value: 80
             - Name: SERVICE_NAME
               Value: !Ref ServiceName
+            - Name: AUTH_KEY
+              Value: !Ref AuthKey
+            - Name: SERVICE_LOGIN
+              Value: !Ref LoginService
           Essential: true
           HealthCheck:
             Command:

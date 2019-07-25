@@ -6,7 +6,7 @@ import (
 
 // CarParksHandler ...
 func CarParksHandler(w http.ResponseWriter, r *http.Request) {
-	RenderTemplate(w, PageData{
+	RenderTemplate(w, r, PageData{
 		Title: "CarParks",
 		Page: "carparks",
 	})
@@ -14,7 +14,7 @@ func CarParksHandler(w http.ResponseWriter, r *http.Request) {
 
 // CarParkHandler ...
 func CarParkHandler(w http.ResponseWriter, r *http.Request) {
-	RenderTemplate(w, PageData{
+	RenderTemplate(w, r, PageData{
 		Title: "CarPark",
 		Page: "carpark",
 	})

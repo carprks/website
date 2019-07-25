@@ -60,7 +60,9 @@ cloudFormation()
                 ParameterKey=SubnetOne,ParameterValue=$AWS_SUBNET_ONE \
                 ParameterKey=SubnetTwo,ParameterValue=$AWS_SUBNET_TWO \
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
-                ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS
+                ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
+                ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
+                ParameterKey=LoginService,ParameterValue=$SERVICE_LOGIN
     else
         AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY aws cloudformation update-stack \
             --template-url https://"$S3_FOLDER".s3."$AWS_REGION".amazonaws.com/"$SERVICE_NAME"/cf.yaml \
@@ -83,7 +85,9 @@ cloudFormation()
                 ParameterKey=SubnetOne,ParameterValue=$AWS_SUBNET_ONE \
                 ParameterKey=SubnetTwo,ParameterValue=$AWS_SUBNET_TWO \
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
-                ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS
+                ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
+                ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
+                ParameterKey=LoginService,ParameterValue=$SERVICE_LOGIN
     fi
 }
 

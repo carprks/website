@@ -59,6 +59,14 @@ func Routes() chi.Router {
 		r.Post("/", website.RegisterHandler)
 	})
 
+	// Logout
+	router.Get("/logout", website.LogoutHandler)
+
+	// Account
+	router.Route("/account", func(r chi.Router) {
+		r.Get("/", website.AccountHandler)
+	})
+
 	// Login
 	router.Route("/login", func(r chi.Router) {
 		r.Get("/", website.LoginHandler)

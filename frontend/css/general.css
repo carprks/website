@@ -177,3 +177,11 @@ body {
     font-size: 1.4rem;
     opacity: .5;
 }
+
+.siteFooter .version {
+    position: absolute;
+    bottom: 0.1rem;
+    right: 0;
+    font-size: 1rem;
+    opacity: .3;
+}

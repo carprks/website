@@ -1,3 +1,12 @@
 {{define "content"}}
-    Login
+    <form method="post">
+        <label for="loginEmail">Email</label>
+        <input type="email" name="loginEmail" id="loginEmail" class="input loginForm" placeholder="user@carpark.ninja" />
+        <br />
+        <label for="loginPassword">Password</label>
+        <input type="password" name="loginPassword" id="loginPassword" class="input loginForm" placeholder="password" />
+
+        <button type="submit" class="button login">Login</button>
+        <button type="button" id="loginRegister" class="button register">Register</button>
+    </form>
 {{end}}

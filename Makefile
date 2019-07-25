@@ -5,7 +5,8 @@ export GOOS=linux
 export GOARCH=amd64
 
 VERSION ?= latest
-LDFLAGS := -X "main.Version=${VERSION}" -X "main.Build=$(shell git rev-parse --short=7 HEAD)"
+BUILD=$(shell git rev-parse --short=7 HEAD)
+LDFLAGS := -ldflags "-w -s -X github.com/carprks/website/backend/website.Version=${VERSION} -X github.com/carprks/website/backend/website.Build=${BUILD}"
 TAGS ?=
 SERVICENAME ?= website
 DD := "docker"
@@ -15,7 +16,7 @@ all: build
 
 .PHONY: build
 build:
-	go build -v -tags '$(TAGS)' -ldflags '-s -w $(LDFLAGS)' -o $(SERVICENAME)
+	go build -v -tags '$(TAGS)' ${LDFLAGS} -o ${SERVICENAME} .
 
 .PHONY: clean
 clean:
@@ -24,14 +25,14 @@ clean:
 	$(DD) rmi "carprks/$(SERVICENAME):$(VERSION)"
 	$(DD) rmi "carprks/$(SERVICENAME):latest"
 
-.PHONMY: osx
+.PHONY: osx
 osx:
-	GOOS=darwin go build -v -tags '$(TAGS)' -ldflags '$(LDFLAGS)' -o $(SERVICENAME)
+	GOOS=darwin go build -v -tags '$(TAGS)' ${LDFLAGS} -o ${SERVICENAME} .
 
 .PHONY: docker
 docker:
 	docker build -t "carprks/$(SERVICENAME):$(VERSION)" \
-		--build-arg build=$(shell git rev-parse --short=7 HEAD) \
+		--build-arg build=${BUILD} \
 		--build-arg version=$(VERSION) \
 		--build-arg SERVICE_NAME=$(SERVICENAME) \
 		-f Dockerfile .

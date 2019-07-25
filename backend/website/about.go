@@ -6,7 +6,7 @@ import (
 
 // AboutHandler ...
 func AboutHandler(w http.ResponseWriter, r *http.Request) {
-	RenderTemplate(w, PageData{
+	RenderTemplate(w, r, PageData{
 		Title: "About",
 		Page: "about",
 		LoggedIn: false,
