@@ -8,7 +8,10 @@ import (
 )
 
 var (
+	// Version of the build
 	Version string
+
+	// Build number
 	Build string
 )
 

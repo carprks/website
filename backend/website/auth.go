@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// CustomClaims ...
 type CustomClaims struct {
 	Identifier string `json:"identifier"`
 	jwt.StandardClaims

@@ -73,11 +73,13 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// LogoutHandler ...
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	deleteJWT(w)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
+// AccountHandler ...
 func AccountHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
 		Title: "Account",
