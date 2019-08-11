@@ -4,14 +4,17 @@ import (
   "net/http"
 )
 
+// Privacy ...
 type Privacy struct {
   Title []TitlePart
   Content []PrivacyParts
 }
+// TitlePart ...
 type TitlePart struct {
   Type string `json:"type"`
   Text string `json:"text"`
 }
+// PrivacyParts ...
 type PrivacyParts struct {
   Type string `json:"type"`
   Text string `json:"text"`
@@ -26,6 +29,7 @@ func PrivacyHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// PrivacyCookieHandler ...
 func PrivacyCookieHandler(w http.ResponseWriter, r *http.Request) {
   RenderTemplate(w, r, PageData{
     Title: "Cookie Policy",
@@ -33,6 +37,7 @@ func PrivacyCookieHandler(w http.ResponseWriter, r *http.Request) {
   })
 }
 
+// PrivacyDataHandler ...
 func PrivacyDataHandler(w http.ResponseWriter, r *http.Request) {
   RenderTemplate(w, r, PageData{
     Title: "Data Privacy Policy",

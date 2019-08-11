@@ -9,15 +9,17 @@ import (
   "strings"
 )
 
+// Prismic ...
 type Prismic struct {
   Results []struct{
     Data interface{} `json:"data"`
   } `json:"results"`
 }
 
+// PrismicRef ...
 type PrismicRef struct{
   Refs []struct{
-    Id string `json:"id"`
+    ID string `json:"id"`
     Ref string `json:"ref"`
   } `json:"refs"`
 }
