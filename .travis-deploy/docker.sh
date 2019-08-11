@@ -12,7 +12,7 @@ pushIt()
 buildIt()
 {
     docker build -t $SERVICE_NAME:latest \
-        --build-arg build=$TRAVIS_COMMIT \
+        --build-arg build=$TRAVIS_BUILD_NUMBER \
         --build-arg version=$TRAVIS_COMMIT \
         --build-arg SERVICE_NAME=$SERVICE_NAME \
         -f Dockerfile .
