@@ -94,11 +94,6 @@
 .siteFooter {
   background: #f0f4fc;
 }
-.container {
-  width: 1180px;
-  margin: auto;
-  position: relative;
-}
 
 .siteFooter .footer {
   color: #7272a3;
@@ -106,7 +101,7 @@
   display: flex;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 7rem 0 6rem;
+  padding: 1rem 0 1rem;
 }
 .siteFooter .brand {
   -ms-flex: 1 1;

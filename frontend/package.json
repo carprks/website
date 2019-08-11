@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-
+  "scripts": {
+    "build:dev": "tailwind build css/prebuild.css -o css/tailwind.css",
+    "run:dev": "nodemon --watch css --exec yarn build:dev"
+  },
   "dependencies": {
     "tailwindcss": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }
