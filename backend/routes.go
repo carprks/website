@@ -89,11 +89,7 @@ func Routes() chi.Router {
 }
 
 func frontEnd(r chi.Router) {
-  distPath := "dist"
-  if os.Getenv("DEVELOPMENT") == "true" {
-    distPath = "frontend"
-  }
-
+  distPath := "frontend"
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Workdir Err: %v", err))

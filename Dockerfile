@@ -26,15 +26,14 @@ RUN cp ${SERVICE_NAME} /
 ######### Frontend Build #######
 FROM node:12.8.0 AS frontend_build
 RUN mkdir -p /home/frontend
-RUN mkdir -p /home/frontend/dist
 WORKDIR /home/frontend
 COPY frontend /home/frontend
 RUN yarn install
-RUN yarn build css/prebuild.css -o dist/output.css
+RUN yarn tailwind build css/prebuild.css -o css/tailwind.css
 
 ######### Distribution #########
 FROM alpine
-ARG SERVICE_NAME
+ARG SERVICE_NAME=website
 RUN apk update && apk upgrade
 RUN apk add ca-certificates && update-ca-certificates
 RUN apk add --update tzdata
@@ -44,6 +43,7 @@ RUN rm -rf /var/cache/apk/*
 # Move from builds
 COPY --from=backend_build /${SERVICE_NAME} /home/
 COPY frontend /home/frontend
+COPY --from=frontend_build /home/frontend/css /home/frontend/css
 
 # Set Timezone
 ENV TZ=Europe/London

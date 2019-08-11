@@ -40,6 +40,7 @@ type PageData struct {
 
 // RenderTemplate ...
 func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
+  distPath := "frontend"
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Working Dir Err: %v", err))
@@ -93,13 +94,8 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 		data.LoggedIn = true
 	}
 
-	path := "dist"
-	if os.Getenv("DEVELOPMENT") == "true" {
-	  path = "frontend"
-  }
-
 	// layout
-	t := template.Must(template.ParseFiles(fmt.Sprintf("%s/%s/layout.html", wd, path), fmt.Sprintf("%s/%s/pages/%s.html", wd, path, data.Page)))
+	t := template.Must(template.ParseFiles(fmt.Sprintf("%s/%s/layout.html", wd, distPath), fmt.Sprintf("%s/%s/pages/%s.html", wd, distPath, data.Page)))
 	err = t.Execute(w, data)
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Template Err: %v", err))
