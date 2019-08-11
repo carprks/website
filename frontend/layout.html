@@ -16,23 +16,30 @@
             <a href="/" title="Home" class="homeLink">
                 <span class="brand">
                     <img alt="CarPark Ninja" src="/assets/siteLogo.png" class="siteLogo" />
+                    <span class="inline lg:hidden">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <span class="brandStart hidden lg:inline">CarPark</span>
                     <span class="hidden lg:inline">Ninja</span>
                 </span>
             </a>
-            <nav class="navLinks md:flex justify-center sm:hidden">
+            <nav class="navLinks flex justify-center">
                 {{range .Links.Navigation}}
                     <a href="/{{.Link}}" title="{{.Title}}" class="navLink">
                         {{.Title}}
                     </a>
                 {{end}}
+                <div class="hidden md:block relative right-0 top-0 mt-2">
+
+
+
+                </div>
+
                 <div class="accountButtons md:flex sm:hidden">
                     {{if .LoggedIn}}
-                        <a class="navLink authLink grey" href="/account">Account</a>
-                        <a class="navLink authLink red" href="/logout">Logout</a>
+                        <a class="text-green-200 rounded border-green-200 border-2 p-1 mt-2" href="/account">Account</a>
+                        <a class="text-red-200 rounded border-red-200 border-2 p-1 mt-5" href="/account/logout">Logout</a>
                     {{else}}
-                        <a class="navLink authLink green" href="/register">Register</a>
-                        <a class="navLink authLink grey" href="/login">Login</a>
+                        <a class="text-green-200 rounded border-green-200 border-2 p-1 mt-2" href="/account/register">Register</a>
+                        <a class="text-blue-200 rounded border-blue-200 border-2 p-1 mt-5" href="/account/login">Login</a>
                     {{end}}
                 </div>
             </nav>

@@ -56,24 +56,24 @@ func Routes() chi.Router {
 		r.Post("/", website.PricingHandler)
 	})
 
-	// Register
-	router.Route("/register", func(r chi.Router) {
-		r.Get("/", website.RegisterHandler)
-		r.Post("/", website.RegisterHandler)
-	})
-
-	// Logout
-	router.Get("/logout", website.LogoutHandler)
-
 	// Account
 	router.Route("/account", func(r chi.Router) {
 		r.Get("/", website.AccountHandler)
-	})
 
-	// Login
-	router.Route("/login", func(r chi.Router) {
-		r.Get("/", website.LoginHandler)
-		r.Post("/", website.LoginHandler)
+    // Login
+    router.Route("/login", func(r chi.Router) {
+      r.Get("/", website.LoginHandler)
+      r.Post("/", website.LoginHandler)
+    })
+
+    // Logout
+    router.Get("/logout", website.LogoutHandler)
+
+    // Register
+    router.Route("/register", func(r chi.Router) {
+      r.Get("/", website.RegisterHandler)
+      r.Post("/", website.RegisterHandler)
+    })
 	})
 
 	// CarParks
