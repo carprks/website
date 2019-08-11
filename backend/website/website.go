@@ -51,7 +51,7 @@ func getPrismicMasterRef() (string, error) {
     }
 
     for _, refs := range ref.Refs {
-      if refs.Id == "master" {
+      if refs.ID == "master" {
         return refs.Ref, nil
       }
     }
