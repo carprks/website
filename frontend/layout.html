@@ -2,8 +2,9 @@
 <html>
     <head>
         <title>CarPark Ninja | {{.Title}}</title>
-        <link rel="stylesheet" type="text/css" href="./css/general.css" />
-        <link rel="stylesheet" type="text/css" href="./css/{{.Page}}.css" />
+        <link rel="stylesheet" type="text/css" href="/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/css/output.css" />
+        <link rel="stylesheet" type="text/css" href="/css/{{.Page}}.css" />
     </head>
     <body>
         <header class="siteHeader">
@@ -32,7 +33,7 @@
             </nav>
         </header>
         <section id="app">
-            {{template "content"}}
+            {{template "content" .Content}}
         </section>
         <footer class="siteFooter">
             <div class="container footer">
@@ -60,6 +61,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://unpkg.com/vuex"></script>
-        <script src="./js/script.js"></script>
+        <script src="/js/script.js"></script>
     </body>
 </html>

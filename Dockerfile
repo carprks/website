@@ -23,6 +23,15 @@ ARG version
 RUN CGO_ENABLED=0 go build -ldflags "-w -s -X github.com/carprks/website/backend/website.Version=${version} -X github.com/carprks/website/backend/website.Build=${build}" -o ${SERVICE_NAME} .
 RUN cp ${SERVICE_NAME} /
 
+######### Frontend Build #######
+FROM node:12.8.0 AS frontend_build
+RUN mkdir -p /home/frontend
+RUN mkdir -p /home/frontend/dist
+WORKDIR /home/frontend
+COPY frontend /home/frontend
+RUN yarn install
+RUN yarn build css/prebuild.css -o dist/output.css
+
 ######### Distribution #########
 FROM alpine
 ARG SERVICE_NAME

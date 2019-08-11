@@ -30,7 +30,10 @@ func Routes() chi.Router {
 	router.Get("/", website.HomeHandler)
 
 	// Privacy
-	router.Get("/privacy", website.PrivacyHandler)
+	router.Route("/privacy", func(r chi.Router) {
+	  r.Get("/", website.PrivacyHandler)
+	  r.Get("/cookie", website.PrivacyCookieHandler)
+  })
 
 	// App
 	router.Get("/app", website.AppHandler)
@@ -97,12 +100,12 @@ func frontEnd(r chi.Router) {
 	}
 	for i := 0; i < len(paths); i++ {
 		path := paths[i]
-		root := filepath.Join(wd, "frontend", path)
+		root := filepath.Join(wd, "dist", path)
 		fileServer(r, fmt.Sprintf("/%s", path), http.Dir(root))
 	}
 
-	css := filepath.Join(wd, "frontend", "css")
-	js := filepath.Join(wd, "frontend", "js")
+	css := filepath.Join(wd, "dist", "css")
+	js := filepath.Join(wd, "dist", "js")
 	fileServer(r, "/css", http.Dir(css))
 	fileServer(r, "/js", http.Dir(js))
 }

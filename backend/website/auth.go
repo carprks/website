@@ -41,7 +41,7 @@ func deleteJWT(w http.ResponseWriter) {
 func checkJWT(r *http.Request) bool {
 	cookie, err := r.Cookie("ninjaToken")
 	if err != nil {
-		fmt.Println(fmt.Sprintf("cookie err: %v", err))
+		// fmt.Println(fmt.Sprintf("cookie err: %v", err))
 		return false
 	}
 

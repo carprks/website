@@ -35,6 +35,7 @@ type PageData struct {
 	Links Links
 	Version string
 	Build string
+	Content interface{}
 }
 
 // RenderTemplate ...
@@ -92,8 +93,13 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 		data.LoggedIn = true
 	}
 
+	path := "dist"
+	if os.Getenv("DEVELOPMENT") == "true" {
+	  path = "frontend"
+  }
+
 	// layout
-	t := template.Must(template.ParseFiles(fmt.Sprintf("%s/frontend/layout.html", wd), fmt.Sprintf("%s/frontend/pages/%s.html", wd, data.Page)))
+	t := template.Must(template.ParseFiles(fmt.Sprintf("%s/%s/layout.html", wd, path), fmt.Sprintf("%s/%s/pages/%s.html", wd, path, data.Page)))
 	err = t.Execute(w, data)
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Template Err: %v", err))
