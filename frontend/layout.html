@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>CarPark Ninja | {{.Title}}</title>
-        <link rel="stylesheet" type="text/css" href="/css/general.css" />
-        <link rel="stylesheet" type="text/css" href="/css/output.css" />
+        <link rel="stylesheet" type="text/css" href="/css/layout.css" />
+        <link rel="stylesheet" type="text/css" href="/css/tailwind.css" />
         <link rel="stylesheet" type="text/css" href="/css/{{.Page}}.css" />
     </head>
     <body>
@@ -32,9 +32,9 @@
                 </div>
             </nav>
         </header>
-        <section id="app">
+        <main id="app" class="container mx-auto px-4 {{.Page}}">
             {{template "content" .Content}}
-        </section>
+        </main>
         <footer class="siteFooter">
             <div class="container footer">
                 <span class="brand">

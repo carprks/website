@@ -89,6 +89,11 @@ func Routes() chi.Router {
 }
 
 func frontEnd(r chi.Router) {
+  distPath := "dist"
+  if os.Getenv("DEVELOPMENT") == "true" {
+    distPath = "frontend"
+  }
+
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Workdir Err: %v", err))
@@ -100,12 +105,12 @@ func frontEnd(r chi.Router) {
 	}
 	for i := 0; i < len(paths); i++ {
 		path := paths[i]
-		root := filepath.Join(wd, "dist", path)
+		root := filepath.Join(wd, distPath, path)
 		fileServer(r, fmt.Sprintf("/%s", path), http.Dir(root))
 	}
 
-	css := filepath.Join(wd, "dist", "css")
-	js := filepath.Join(wd, "dist", "js")
+	css := filepath.Join(wd, distPath, "css")
+	js := filepath.Join(wd, distPath, "js")
 	fileServer(r, "/css", http.Dir(css))
 	fileServer(r, "/js", http.Dir(js))
 }

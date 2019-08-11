@@ -217,6 +217,4 @@ coverage.html
 build/
 .next/
 /website
-css/output.css
-dist/
-frontend/dist/
+frontend/css/tailwind.css
