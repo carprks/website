@@ -1,12 +1,35 @@
 {{define "content"}}
-    <form method="post">
-        <label for="loginEmail">Email</label>
-        <input type="email" name="loginEmail" id="loginEmail" class="input loginForm" placeholder="user@carpark.ninja" />
-        <br />
-        <label for="loginPassword">Password</label>
-        <input type="password" name="loginPassword" id="loginPassword" class="input loginForm" placeholder="password" />
+    <form method="post" class="antialiased max-w-xs mx-auto mt-4">
+        {{if .}}
+            <div class="bg-red-300 text-white mx-auto w-full p-3 rounded" id="errorMessage">
+                <span>{{.}}</span>
+                <span class="text-sm float-right cursor-pointer" id="closeMessage">X</span>
+            </div>
+        {{end}}
 
-        <button type="submit" class="button login">Login</button>
-        <button type="button" id="loginRegister" class="button register">Register</button>
+        <label for="loginEmail" class="inline-flex items-center">
+            <span class="mr-2">Email</span>
+            <input type="email" name="loginEmail" id="loginEmail" class="form-input block w-full my-4" placeholder="user@carpark.ninja" />
+        </label>
+        <label for="loginPassword" class="inline-flex items-center">
+            <span class="mr-2">Password</span>
+            <input type="password" name="loginPassword" id="loginPassword" class="form-input block w-full my-4" placeholder="password" />
+        </label>
+
+        <div class="inline-flex items-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Login</button>
+            <button type="button" id="loginRegister" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Register</button>
+        </div>
     </form>
+
+    <script>
+        let cm = document.getElementById("closeMessage")
+        console.log("cm", cm)
+        cm.onclick = function() {
+            console.log("this", this)
+            let er = document.getElementById("errorMessage")
+            er.parentElement.removeChild(er)
+            console.log("er", er)
+        }
+    </script>
 {{end}}

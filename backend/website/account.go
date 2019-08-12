@@ -4,13 +4,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"net/http"
+  "io/ioutil"
+  "net/http"
 	"os"
 )
 
 type loginObject struct {
 	Email string `json:"email"`
 	Password string `json:"password"`
+}
+
+type LoginResponse struct {
+  Error string `json:"error"`
+  ID string `json:"id"`
 }
 
 // LoginHandler ...
@@ -55,7 +61,28 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer resp.Body.Close()
 		if resp.StatusCode == 200 {
-			saveJWT(w, r)
+		  body, err := ioutil.ReadAll(resp.Body)
+		  if err != nil {
+		    fmt.Println(fmt.Sprintf("account resp err: %v", err))
+		    return
+      }
+		  lr := LoginResponse{}
+		  jerr := json.Unmarshal(body, &lr)
+		  if jerr != nil {
+		    fmt.Println(fmt.Sprintf("account decode err: %v", jerr))
+		    return
+      }
+
+		  if lr.Error != "" {
+		    fmt.Println(fmt.Sprintf("lr err: %v", lr))
+		    // http.Redirect(w, r, "/account/login", http.StatusSeeOther)
+		    pd.Content = lr.Error
+
+		    RenderTemplate(w, r, pd)
+		    return
+      }
+
+			saveJWT(w, r, lr)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
@@ -69,7 +96,6 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
 		Title: "Register",
 		Page: "register",
-		LoggedIn: false,
 	})
 }
 
