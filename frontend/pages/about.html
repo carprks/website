@@ -1,14 +1,63 @@
 {{define "content"}}
-    <section class="about">
-        <header>Welcome to CarPark Ninja</header>
-        <p>You need somewhere to park, but there are so many choices, which one is the cheapest, which one has underground parking, which one offers contract parking.</p>
-        <p>Here at CarPark Ninja its our mission to get you all that info and the best deal.</p>
-        <ul>
-            <li></li>
-        </ul>
+    <section class="block rounded-lg shadow-xl p-2 m-2">
+        <header>
+            <h1 class="text-3xl lg:text-2xl text-gray-900">Welcome to CarPark Ninja</h1>
+        </header>
+        <article>
+            <p class="text-xl lg:text-base text-gray-600 leading-normal p-1">You need somewhere to park, but there are so many choices, which one is the cheapest, which one has underground parking, which one offers contract parking.</p>
+            <p class="text-xl lg:text-base text-gray-600 leading-normal p-1">Here at CarPark Ninja its our mission to get you all that info and the best deal.</p>
+            <div class="flex">
+                <a href="#what_were_about" class="flex-1 bg-gray-200 p-2 m-1">What we're about</a>
+                <a href="#how_we_work" class="flex-1 bg-gray-200 p-2 m-1">How we work</a>
+                <a href="#why_use_us" class="flex-1 bg-gray-200 p-2 m-1">Why use us</a>
+                <a href="#who_we_are" class="flex-1 bg-gray-200 p-2 m-1">Who we are</a>
+            </div>
+        </article>
     </section>
-    <section class="about"></section>
-    <section class="about"></section>
-    <section class="about"></section>
-    <section class="about"></section>
+
+    <section class="about block rounded-lg shadow-xl p-2 m-2 mt-10" id="what_were_about">
+        <header>
+            <h1 class="text-3xl lg:text-2xl text-gray-900">What we're about</h1>
+        </header>
+        <article>
+            <p class="text-xl lg:text-base text-gray-600 leading-normal p-1">We want to make parking as easy and simple as possible</p>
+            <p class="text-xl lg:text-base text-gray-600 leading-normal p-1">Parking shouldn't be difficult, it shouldn't be hard to get contract parking, or even daily parking, there is no need for a different app for each parking company</p>
+            <p class="text-xl lg:text-base text-gray-600 leading-normal p-1">We are bringing all parking comapnies into a single app so you can park without the hassle</p>
+            <div class="flex justify-center">
+                <div class="flex-1 p-3">
+                    <img src="/assets/smiley.png" alt="smiley" height="72px" width="72px" class="mx-auto"/>
+                    <p class="font-bold text-center">We know the service you recieve matters</p>
+                    <p class="text-center">We use real reviews, genuine customer feedback, and our own expertise to give you the most seamless experience possible</p>
+                </div>
+                <div class="flex-1 p-3">
+                    <img src="/assets/car.png" alt="car" height="72px" width="72px" class="mx-auto"/>
+                    <p class="font-bold text-center">We work with carpark providers all over the country</p>
+                    <p class="text-center">From local carparks to multinational providers looking to get you the parking closest to your destination that you require</p>
+                </div>
+                <div class="flex-1 p-3">
+                    <img src="/assets/weight.png" alt="weight" height="72px" width="72px" class="mx-auto"/>
+                    <p class="font-bold text-center">We do all the heavy lifting so you can get on with your day</p>
+                    <p class="text-center">All you need to do is park, and tell us, we do the rest</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="about block rounded-lg shadow-xl p-2 m-2 mt-10" id="how_we_work">
+        <header>
+            <h1 class="text-3xl lg:text-2xl text-gray-900">How we work</h1>
+        </header>
+    </section>
+
+    <section class="about block rounded-lg shadow-xl p-2 m-2 mt-10" id="why_use_us">
+        <header>
+            <h1 class="text-3xl lg:text-2xl text-gray-900">Why use us</h1>
+        </header>
+    </section>
+
+    <section class="about block rounded-lg shadow-xl p-2 m-2 mt-10" id="who_we_are">
+        <header>
+            <h1 class="text-3xl lg:text-2xl text-gray-900">Who we are</h1>
+        </header>
+    </section>
 {{end}}
