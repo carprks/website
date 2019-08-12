@@ -3,7 +3,3 @@
 @tailwind components;
 
 @tailwind utilities;
-
-.privacy h1 {
-  @apply text-2xl;
-}
