@@ -82,6 +82,12 @@ func Routes() chi.Router {
 		r.Post("/", website.CarParkHandler)
 	})
 
+	// Statistics
+	router.Route("/open", func(r chi.Router) {
+	  r.Get("/revenue", probe.HTTP)
+	  r.Get("/wages", probe.HTTP)
+  })
+
 	// Frontend
 	frontEnd(router)
 

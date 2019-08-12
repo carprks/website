@@ -1,6 +1,10 @@
 # Website
 
-Website uses golang as its backend and react as its frontend
+Technologies used
+ - Docker
+ - Go
+ - Yarn
+ - Tailwind CSS
 
 it builds both sides in docker
 
