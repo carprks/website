@@ -61,18 +61,18 @@ func Routes() chi.Router {
 		r.Get("/", website.AccountHandler)
 
     // Login
-    router.Route("/login", func(r chi.Router) {
-      r.Get("/", website.LoginHandler)
-      r.Post("/", website.LoginHandler)
+    r.Route("/login", func(rt chi.Router) {
+      rt.Get("/", website.LoginHandler)
+      rt.Post("/", website.LoginHandler)
     })
 
     // Logout
-    router.Get("/logout", website.LogoutHandler)
+    r.Get("/logout", website.LogoutHandler)
 
     // Register
-    router.Route("/register", func(r chi.Router) {
-      r.Get("/", website.RegisterHandler)
-      r.Post("/", website.RegisterHandler)
+    r.Route("/register", func(rt chi.Router) {
+      rt.Get("/", website.RegisterHandler)
+      rt.Post("/", website.RegisterHandler)
     })
 	})
 
