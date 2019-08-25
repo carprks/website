@@ -4,7 +4,6 @@
         <title>CarPark Ninja | {{.Title}}</title>
         <link rel="stylesheet" type="text/css" href="/css/layout.css" />
         <link rel="stylesheet" type="text/css" href="/css/tailwind.css" />
-        <link rel="stylesheet" type="text/css" href="/css/{{.Page}}.css" />
 
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
@@ -35,8 +34,8 @@
 
                 <div class="accountButtons md:flex sm:hidden">
                     {{if .LoggedIn}}
-                        <a class="text-green-200 rounded border-green-200 border-2 p-1 mt-2" href="/account">Account</a>
-                        <a class="text-red-200 rounded border-red-200 border-2 p-1 mt-2" href="/account/logout">Logout</a>
+                        <a class="text-green-200 rounded border-green-200 border-2 p-1 mt-2 ml-1" href="/account">Account</a>
+                        <a class="text-red-200 rounded border-red-200 border-2 p-1 mt-2 ml-1" href="/account/logout">Logout</a>
                     {{else}}
                         <a class="text-green-200 rounded border-green-200 border-2 p-1 mt-2 ml-1" href="/account/register">Register</a>
                         <a class="text-blue-200 rounded border-blue-200 border-2 p-1 mt-2 ml-1" href="/account/login">Login</a>

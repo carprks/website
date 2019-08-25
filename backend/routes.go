@@ -30,9 +30,9 @@ func Routes() chi.Router {
 	router.Get("/", website.HomeHandler)
 
 	// Privacy
-	router.Route("/privacy", func(r chi.Router) {
-	  r.Get("/", website.PrivacyHandler)
-	  r.Get("/cookie", website.PrivacyCookieHandler)
+	router.Route("/privacy", func(rt chi.Router) {
+	  rt.Get("/", website.PrivacyHandler)
+	  rt.Get("/cookie", website.PrivacyCookieHandler)
   })
 
 	// App
@@ -45,25 +45,27 @@ func Routes() chi.Router {
 	router.Get("/about", website.AboutHandler)
 
 	// Contact
-	router.Route("/contact", func(r chi.Router) {
-		r.Get("/", website.ContactHandler)
-		r.Post("/", website.ContactHandler)
+	router.Route("/contact", func(rt chi.Router) {
+		rt.HandleFunc("/", website.ContactHandler)
 	})
 
 	// Pricing
-	router.Route("/pricing", func(r chi.Router) {
-		r.Get("/", website.PricingHandler)
-		r.Post("/", website.PricingHandler)
+	router.Route("/pricing", func(rt chi.Router) {
+		rt.HandleFunc("/", website.PricingHandler)
 	})
 
 	// Account
 	router.Route("/account", func(r chi.Router) {
 		r.Get("/", website.AccountHandler)
 
+		// Forgot
+		r.Route("/forgot", func(rt chi.Router) {
+			rt.HandleFunc("/", website.ForgotHandler)
+		})
+
     // Login
     r.Route("/login", func(rt chi.Router) {
-      rt.Get("/", website.LoginHandler)
-      rt.Post("/", website.LoginHandler)
+    	rt.HandleFunc("/", website.LoginHandler)
     })
 
     // Logout
@@ -71,21 +73,19 @@ func Routes() chi.Router {
 
     // Register
     r.Route("/register", func(rt chi.Router) {
-      rt.Get("/", website.RegisterHandler)
-      rt.Post("/", website.RegisterHandler)
+    	rt.HandleFunc("/", website.RegisterHandler)
     })
 	})
 
 	// CarParks
-	router.Route("/carparks", func(r chi.Router) {
-		r.Get("/", website.CarParksHandler)
-		r.Post("/", website.CarParkHandler)
+	router.Route("/carparks", func(rt chi.Router) {
+		rt.HandleFunc("/", website.CarParksHandler)
 	})
 
 	// Statistics
-	router.Route("/open", func(r chi.Router) {
-	  r.Get("/revenue", probe.HTTP)
-	  r.Get("/wages", probe.HTTP)
+	router.Route("/open", func(rt chi.Router) {
+	  rt.Get("/revenue", probe.HTTP)
+	  rt.Get("/wages", probe.HTTP)
   })
 
 	// Frontend

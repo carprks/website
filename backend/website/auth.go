@@ -13,7 +13,7 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-func saveJWT(w http.ResponseWriter, r *http.Request, lr LoginResponse) {
+func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, CustomClaims{
 		Identifier: lr.ID,
 	})

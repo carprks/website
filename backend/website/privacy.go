@@ -25,7 +25,7 @@ func PrivacyHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
 		Title: "Privacy Policy",
 		Page: "privacy",
-		LoggedIn: false,
+		PagePath: "about",
 	})
 }
 
@@ -34,6 +34,7 @@ func PrivacyCookieHandler(w http.ResponseWriter, r *http.Request) {
   RenderTemplate(w, r, PageData{
     Title: "Cookie Policy",
     Page: "cookie",
+    PagePath: "about",
   })
 }
 

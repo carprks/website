@@ -31,6 +31,7 @@ type Links struct {
 type PageData struct {
 	Title string
 	Page string
+	PagePath string
 	LoggedIn bool
 	Links Links
 	Version string
@@ -95,7 +96,13 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 	}
 
 	// layout
-	t := template.Must(template.ParseFiles(fmt.Sprintf("%s/%s/layout.html", wd, distPath), fmt.Sprintf("%s/%s/pages/%s.html", wd, distPath, data.Page)))
+	layoutPath := fmt.Sprintf("%s/%s/layout.html", wd, distPath)
+	pagePath := fmt.Sprintf("%s/%s/pages/%s.html", wd, distPath, data.Page)
+	if data.PagePath != "" {
+	  pagePath = fmt.Sprintf("%s/%s/pages/%s/%s.html", wd, distPath, data.PagePath, data.Page)
+  }
+
+	t := template.Must(template.ParseFiles(layoutPath, pagePath))
 	err = t.Execute(w, data)
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Template Err: %v", err))
