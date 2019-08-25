@@ -31,9 +31,9 @@ func Routes() chi.Router {
 
 	// Privacy
 	router.Route("/privacy", func(rt chi.Router) {
-	  rt.Get("/", website.PrivacyHandler)
-	  rt.Get("/cookie", website.PrivacyCookieHandler)
-  })
+		rt.Get("/", website.PrivacyHandler)
+		rt.Get("/cookie", website.PrivacyCookieHandler)
+	})
 
 	// App
 	router.Get("/app", website.AppHandler)
@@ -63,18 +63,18 @@ func Routes() chi.Router {
 			rt.HandleFunc("/", website.ForgotHandler)
 		})
 
-    // Login
-    r.Route("/login", func(rt chi.Router) {
-    	rt.HandleFunc("/", website.LoginHandler)
-    })
+		// Login
+		r.Route("/login", func(rt chi.Router) {
+			rt.HandleFunc("/", website.LoginHandler)
+		})
 
-    // Logout
-    r.Get("/logout", website.LogoutHandler)
+		// Logout
+		r.Get("/logout", website.LogoutHandler)
 
-    // Register
-    r.Route("/register", func(rt chi.Router) {
-    	rt.HandleFunc("/", website.RegisterHandler)
-    })
+		// Register
+		r.Route("/register", func(rt chi.Router) {
+			rt.HandleFunc("/", website.RegisterHandler)
+		})
 	})
 
 	// CarParks
@@ -84,9 +84,9 @@ func Routes() chi.Router {
 
 	// Statistics
 	router.Route("/open", func(rt chi.Router) {
-	  rt.Get("/revenue", probe.HTTP)
-	  rt.Get("/wages", probe.HTTP)
-  })
+		rt.Get("/revenue", probe.HTTP)
+		rt.Get("/wages", probe.HTTP)
+	})
 
 	// Frontend
 	frontEnd(router)
@@ -95,7 +95,7 @@ func Routes() chi.Router {
 }
 
 func frontEnd(r chi.Router) {
-  distPath := "frontend"
+	distPath := "frontend"
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Workdir Err: %v", err))
@@ -123,8 +123,8 @@ func fileServer(r chi.Router, path string, root http.FileSystem) {
 	}
 
 	fs := http.StripPrefix(path, http.FileServer(root))
-	if path != "/" && path[len(path) - 1] != '/' {
-		r.Get(path, http.RedirectHandler(path + "/", 301).ServeHTTP)
+	if path != "/" && path[len(path)-1] != '/' {
+		r.Get(path, http.RedirectHandler(path+"/", 301).ServeHTTP)
 		path += "/"
 	}
 	path += "*"

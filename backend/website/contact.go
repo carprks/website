@@ -7,8 +7,8 @@ import (
 // ContactHandler ...
 func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
-		Title: "Contact",
-		Page: "contact",
+		Title:    "Contact",
+		Page:     "contact",
 		LoggedIn: false,
 	})
 }

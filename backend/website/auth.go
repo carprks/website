@@ -24,19 +24,19 @@ func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 	}
 
 	http.SetCookie(w, &http.Cookie{
-		Name: "ninjaToken",
-		Value: tokenString,
+		Name:   "ninjaToken",
+		Value:  tokenString,
 		MaxAge: 600,
-		Path: "/",
+		Path:   "/",
 	})
 }
 
 func deleteJWT(w http.ResponseWriter) {
 	http.SetCookie(w, &http.Cookie{
-		Name: "ninjaToken",
+		Name:   "ninjaToken",
 		MaxAge: -500,
-		Path: "/",
-		Value: "",
+		Path:   "/",
+		Value:  "",
 	})
 }
 
@@ -51,14 +51,14 @@ func checkJWT(r *http.Request) bool {
 		return false
 	}
 
-	token, err := jwt.Parse(cookie.Value, func (token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("SIGNING_SECRET")), nil
 	})
 
 	if token != nil {
-	  if token.Valid {
-		  return true
-	  }
+		if token.Valid {
+			return true
+		}
 	}
 
 	return false

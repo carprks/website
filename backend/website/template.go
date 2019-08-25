@@ -18,30 +18,30 @@ var (
 // Link structure
 type Link struct {
 	Title string
-	Link string
+	Link  string
 }
 
 // Links structure
 type Links struct {
 	Navigation []Link
-	Footer []Link
+	Footer     []Link
 }
 
 // PageData structure
 type PageData struct {
-	Title string
-	Page string
+	Title    string
+	Page     string
 	PagePath string
 	LoggedIn bool
-	Links Links
-	Version string
-	Build string
-	Content interface{}
+	Links    Links
+	Version  string
+	Build    string
+	Content  interface{}
 }
 
 // RenderTemplate ...
 func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
-  distPath := "frontend"
+	distPath := "frontend"
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Working Dir Err: %v", err))
@@ -56,37 +56,37 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 		Navigation: []Link{
 			{
 				Title: "CarParks",
-				Link: "carparks",
+				Link:  "carparks",
 			},
 			{
 				Title: "Pricing",
-				Link: "pricing",
+				Link:  "pricing",
 			},
 			{
 				Title: "Companies",
-				Link: "companies",
+				Link:  "companies",
 			},
 			{
 				Title: "App",
-				Link: "app",
+				Link:  "app",
 			},
 			{
 				Title: "About",
-				Link: "about",
+				Link:  "about",
 			},
 		},
 		Footer: []Link{
 			{
 				Title: "Contact Us",
-				Link: "contact",
+				Link:  "contact",
 			},
 			{
 				Title: "About Us",
-				Link: "about",
+				Link:  "about",
 			},
 			{
 				Title: "Privacy Policy",
-				Link: "privacy",
+				Link:  "privacy",
 			},
 		},
 	}
@@ -99,8 +99,8 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 	layoutPath := fmt.Sprintf("%s/%s/layout.html", wd, distPath)
 	pagePath := fmt.Sprintf("%s/%s/pages/%s.html", wd, distPath, data.Page)
 	if data.PagePath != "" {
-	  pagePath = fmt.Sprintf("%s/%s/pages/%s/%s.html", wd, distPath, data.PagePath, data.Page)
-  }
+		pagePath = fmt.Sprintf("%s/%s/pages/%s/%s.html", wd, distPath, data.PagePath, data.Page)
+	}
 
 	t := template.Must(template.ParseFiles(layoutPath, pagePath))
 	err = t.Execute(w, data)

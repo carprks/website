@@ -7,8 +7,8 @@ import (
 // AppHandler ...
 func AppHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
-		Title: "App",
-		Page: "app",
+		Title:    "App",
+		Page:     "app",
 		LoggedIn: false,
 	})
 }
