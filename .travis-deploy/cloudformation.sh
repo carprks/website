@@ -62,7 +62,7 @@ cloudFormation()
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
                 ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
                 ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
-                ParameterKey=LoginService,ParameterValue=$SERVICE_LOGIN
+                ParameterKey=AccountService,ParameterValue=$SERVICE_ACCOUNT
     else
         AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY aws cloudformation update-stack \
             --template-url https://"$S3_FOLDER".s3."$AWS_REGION".amazonaws.com/"$SERVICE_NAME"/cf.yaml \
@@ -87,7 +87,7 @@ cloudFormation()
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
                 ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
                 ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
-                ParameterKey=LoginService,ParameterValue=$SERVICE_LOGIN
+                ParameterKey=AccountService,ParameterValue=$SERVICE_ACCOUNT
     fi
 }
 
@@ -112,6 +112,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
     AWS_SUBNET_TWO=$DEV_AWS_SUBNET_TWO
     AWS_SUBNET_THREE=$DEV_AWS_SUBNET_THREE
     AWS_PRICE_CLASS=$DEV_AWS_PRICE_CLASS
+    ACCOUNT_SERVICE=$DEV_ACCOUNT_SERVICE
 
     echo "Deploy Dev"
     deployIt
@@ -132,6 +133,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
             AWS_VPCID=$LIVE_AWS_VPCID
             AWS_LOADBALANCER_ADDRESS=$LIVE_AWS_LOADBALANCER_ADDRESS
             AWS_LOADBALANCER_LISTENER_ARN=$LIVE_AWS_LOADBALANCER_LISTERNER_ARN
+            ACCOUNT_SERVICE=$LIVE_ACCOUNT_SERVICE
 
             echo "Deploy Live"
             deployIt

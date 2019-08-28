@@ -16,8 +16,15 @@ type loginObject struct {
 }
 
 type loginResponse struct {
-	Error string `json:"error"`
-	ID    string `json:"id"`
+	Error       string       `json:"error"`
+	Identifier  string       `json:"identifier"`
+	Permissions []permission `json:"permissions"`
+}
+
+type permission struct {
+	Name       string `json:"name"`
+	Action     string `json:"action"`
+	Identifier string `json:"identifier"`
 }
 
 type registerObject struct {
@@ -72,7 +79,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(fmt.Sprintf("JSON login err: %v", err))
 		}
 
-		req, err := http.NewRequest("POST", fmt.Sprintf("%s/login", os.Getenv("SERVICE_LOGIN")), bytes.NewBuffer(j))
+		req, err := http.NewRequest("POST", fmt.Sprintf("%s/login", os.Getenv("SERVICE_ACCOUNT")), bytes.NewBuffer(j))
 		if err != nil {
 			fmt.Println(fmt.Sprintf("req err: %v", err))
 		}
@@ -97,6 +104,10 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
+			if canLogin(lr) {
+				lr.Error = "account banned"
+			}
+
 			if lr.Error != "" {
 				fmt.Println(fmt.Sprintf("lr err: %v", lr))
 				// http.Redirect(w, r, "/account/login", http.StatusSeeOther)
@@ -105,7 +116,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 				RenderTemplate(w, r, pd)
 				return
 			}
-
 			saveJWT(w, r, lr)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
@@ -171,7 +181,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Println(string(j))
 
-		req, err := http.NewRequest("POST", fmt.Sprintf("%s/register", os.Getenv("SERVICE_LOGIN")), bytes.NewBuffer(j))
+		req, err := http.NewRequest("POST", fmt.Sprintf("%s/register", os.Getenv("SERVICE_ACCOUNT")), bytes.NewBuffer(j))
 		if err != nil {
 			fmt.Println(fmt.Sprintf("req err: %v", err))
 		}
@@ -219,4 +229,14 @@ func ForgotHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println(r.Method)
+}
+
+func canLogin(response loginResponse) bool {
+	for _, perm := range response.Permissions {
+		if perm.Action == "account" && perm.Name == "login" {
+			return true
+		}
+	}
+
+	return false
 }

@@ -15,7 +15,7 @@ type CustomClaims struct {
 
 func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, CustomClaims{
-		Identifier: lr.ID,
+		Identifier: lr.Identifier,
 	})
 
 	tokenString, err := token.SignedString([]byte(os.Getenv("SIGNING_SECRET")))

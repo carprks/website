@@ -46,7 +46,7 @@ Parameters:
     Default: PriceClass_All
   AuthKey:
     Type: String
-  LoginService:
+  AccountService:
     Type: String
 
 Resources:
@@ -168,8 +168,8 @@ Resources:
               Value: !Ref ServiceName
             - Name: AUTH_KEY
               Value: !Ref AuthKey
-            - Name: SERVICE_LOGIN
-              Value: !Ref LoginService
+            - Name: SERVICE_ACCOUNT
+              Value: !Ref AccountService
           Essential: true
           HealthCheck:
             Command:
