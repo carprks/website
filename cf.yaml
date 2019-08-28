@@ -48,6 +48,8 @@ Parameters:
     Type: String
   AccountService:
     Type: String
+  SigningSecret:
+    Type: String
 
 Resources:
   PrimaryDNS:
@@ -170,6 +172,8 @@ Resources:
               Value: !Ref AuthKey
             - Name: SERVICE_ACCOUNT
               Value: !Ref AccountService
+            - Name: SIGNING_SECRET
+              Value: !Ref SigningSecret
           Essential: true
           HealthCheck:
             Command:
