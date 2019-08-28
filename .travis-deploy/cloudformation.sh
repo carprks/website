@@ -87,7 +87,7 @@ cloudFormation()
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
                 ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
                 ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
-                ParameterKey=AccountService,ParameterValue=$SERVICE_ACCOUNT
+                ParameterKey=AccountService,ParameterValue=$ACCOUNT_SERVICE
     fi
 }
 
@@ -113,6 +113,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
     AWS_SUBNET_THREE=$DEV_AWS_SUBNET_THREE
     AWS_PRICE_CLASS=$DEV_AWS_PRICE_CLASS
     ACCOUNT_SERVICE=$DEV_ACCOUNT_SERVICE
+    AUTH_KEY=$DEV_AUTH_KEY
 
     echo "Deploy Dev"
     deployIt
@@ -134,6 +135,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
             AWS_LOADBALANCER_ADDRESS=$LIVE_AWS_LOADBALANCER_ADDRESS
             AWS_LOADBALANCER_LISTENER_ARN=$LIVE_AWS_LOADBALANCER_LISTERNER_ARN
             ACCOUNT_SERVICE=$LIVE_ACCOUNT_SERVICE
+            AUTH_KEY=$LIVE_AUTH_KEY
 
             echo "Deploy Live"
             deployIt
