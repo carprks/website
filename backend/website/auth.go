@@ -28,12 +28,12 @@ func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 		Value:  tokenString,
 		MaxAge: 600,
 		Path:   "/",
+		Domain: fmt.Sprintf("http://%s", os.Getenv("DOMAIN_NAME")),
 	}
 
 	http.SetCookie(w, &cookie)
 
 	fmt.Println(fmt.Sprintf("cookie: %v", cookie))
-	fmt.Println(fmt.Sprintf("Signing Secret: %v", os.Getenv("SIGNING_SECRET")))
 }
 
 func deleteJWT(w http.ResponseWriter) {

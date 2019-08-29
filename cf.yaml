@@ -174,6 +174,8 @@ Resources:
               Value: !Ref AccountService
             - Name: SIGNING_SECRET
               Value: !Ref SigningSecret
+            - Name: DOMAIN_NAME
+              Value: !Ref AltDomainName
           Essential: true
           HealthCheck:
             Command:
