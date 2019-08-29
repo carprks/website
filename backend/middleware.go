@@ -12,7 +12,7 @@ func presetHeaders(next http.Handler) http.Handler {
 		if os.Getenv("DEVELOPMENT") != "true" {
 			w.Header().Set("Strict-Transport-Security", "max-age=1000; includeSubdomains; preload")
 			w.Header().Set("Content-Security-Policy", "upgrade-insecure-requests")
-			w.Header().Set("Feature-Policy", "vibrate 'none")
+			// w.Header().Set("Feature-Policy", "vibrate 'none")
 		}
 
 		next.ServeHTTP(w, r.WithContext(ctx))

@@ -92,6 +92,8 @@ Resources:
           TargetOriginId: !Join ['-', [!Ref ServiceName, cloudfront, !Ref Environment]]
           ForwardedValues:
             QueryString: false
+            Cookies:
+              Forward: all
         Enabled: true
         HttpVersion: http2
         ViewerCertificate:

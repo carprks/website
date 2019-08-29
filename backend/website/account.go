@@ -69,7 +69,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		if l.Password == "" && l.Email == "" {
 			pd.Content = "Email and Password not recognised"
-
 			RenderTemplate(w, r, pd)
 			fmt.Println(fmt.Sprintf("err: %v, form: %v", pd.Content, r.Form))
 			return
@@ -121,12 +120,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 			fmt.Println(fmt.Sprintf("saving jwt: %v", lr))
 			saveJWT(w, r, lr)
-			pd.Page = "home"
-			pd.PagePath = ""
-			RenderTemplate(w, r, pd)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
-			// http.Redirect(w, r, "/", http.StatusSeeOther)
-			// return
 		}
 
 		fmt.Println(fmt.Sprintf("StatusCode: %v, Body: %v", resp.StatusCode, string(body)))
