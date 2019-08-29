@@ -5,6 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"os"
+	"time"
 )
 
 // CustomClaims ...
@@ -23,12 +24,14 @@ func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 		fmt.Println(fmt.Errorf("signing err: %v", err))
 	}
 
+	now := time.Now()
 	cookie := http.Cookie{
 		Name:   "ninjaToken",
 		Value:  tokenString,
 		MaxAge: 600,
 		Path:   "/",
 		Domain: os.Getenv("DOMAIN_NAME"),
+		Expires: now.AddDate(0, 1, 0),
 	}
 	r.AddCookie(&cookie)
 	http.SetCookie(w, &cookie)
