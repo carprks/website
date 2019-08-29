@@ -87,8 +87,6 @@ func getIdentifier(r *http.Request) string {
 			return identifier
 		}
 
-
-
 		if token != nil {
 			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 				identifier = fmt.Sprintf("%v", claims["identifier"])
@@ -102,12 +100,17 @@ func getIdentifier(r *http.Request) string {
 func checkAllowed(p permission, r *http.Request) bool {
 	ident := getIdentifier(r)
 
+	if p.Identifier == "" {
+		p.Identifier = ident
+	}
+
 	l := permissions.Permissions{
 		Identifier: ident,
 		Permissions: []permissions.Permission{
 			{
 				Name: p.Name,
 				Action: p.Action,
+				Identifier: p.Identifier,
 			},
 		},
 	}

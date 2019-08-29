@@ -224,6 +224,10 @@ func AccountHandler(w http.ResponseWriter, r *http.Request) {
 		Title:    "Account",
 		Page:     "account",
 		PagePath: "account",
+		Permission: permission{
+			Name: "account",
+			Action: "view",
+		},
 	})
 }
 
