@@ -71,6 +71,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			pd.Content = "Email and Password not recognised"
 
 			RenderTemplate(w, r, pd)
+			fmt.Println(fmt.Sprintf("err: %v, form: %v", pd.Content, r.Form))
 			return
 		}
 
@@ -91,12 +92,12 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(fmt.Sprintf("client err: %v", err))
 		}
 		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Println(fmt.Sprintf("account resp err: %v", err))
+			return
+		}
 		if resp.StatusCode == 200 {
-			body, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				fmt.Println(fmt.Sprintf("account resp err: %v", err))
-				return
-			}
 			lr := loginResponse{}
 			jerr := json.Unmarshal(body, &lr)
 			if jerr != nil {
@@ -106,6 +107,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 			if canLogin(lr) {
 				lr.Error = "account banned"
+				fmt.Println(fmt.Sprintf("account banned: %v", lr))
 			}
 
 			if lr.Error != "" {
@@ -116,10 +118,14 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 				RenderTemplate(w, r, pd)
 				return
 			}
+
+			fmt.Println(fmt.Sprintf("saving jwt: %v", lr))
 			saveJWT(w, r, lr)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
+
+		fmt.Println(fmt.Sprintf("StatusCode: %v, Body: %v", resp.StatusCode, string(body)))
 	}
 
 	RenderTemplate(w, r, pd)
