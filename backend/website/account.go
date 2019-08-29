@@ -121,8 +121,12 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 			fmt.Println(fmt.Sprintf("saving jwt: %v", lr))
 			saveJWT(w, r, lr)
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+			pd.Page = "home"
+			pd.PagePath = ""
+			RenderTemplate(w, r, pd)
 			return
+			// http.Redirect(w, r, "/", http.StatusSeeOther)
+			// return
 		}
 
 		fmt.Println(fmt.Sprintf("StatusCode: %v, Body: %v", resp.StatusCode, string(body)))
