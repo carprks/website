@@ -9,6 +9,5 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
 		Title:    "Home",
 		Page:     "home",
-		LoggedIn: false,
 	})
 }

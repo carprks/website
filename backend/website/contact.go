@@ -9,6 +9,5 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, r, PageData{
 		Title:    "Contact",
 		Page:     "contact",
-		LoggedIn: false,
 	})
 }

@@ -37,6 +37,7 @@ type PageData struct {
 	Version  string
 	Build    string
 	Content  interface{}
+	Permission permission
 }
 
 // RenderTemplate ...
@@ -93,6 +94,14 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, data PageData) {
 
 	if checkJWT(r) {
 		data.LoggedIn = true
+	}
+
+	if data.Permission.Name != "" && data.Permission.Action != "" {
+		allowed := checkAllowed(data.Permission, r)
+		if !allowed {
+			data.Page = "home"
+			data.PagePath = "/"
+		}
 	}
 
 	// layout

@@ -10,6 +10,5 @@ func AboutHandler(w http.ResponseWriter, r *http.Request) {
 		Title:    "About",
 		Page:     "about",
 		PagePath: "about",
-		LoggedIn: false,
 	})
 }
