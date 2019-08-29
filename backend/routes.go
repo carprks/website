@@ -111,10 +111,10 @@ func frontEnd(r chi.Router) {
 		fileServer(r, fmt.Sprintf("/%s", path), http.Dir(root))
 	}
 
-	css := filepath.Join(wd, distPath, "css")
-	js := filepath.Join(wd, distPath, "js")
-	fileServer(r, "/css", http.Dir(css))
-	fileServer(r, "/js", http.Dir(js))
+	// css := filepath.Join(wd, distPath, "css")
+	// js := filepath.Join(wd, distPath, "js")
+	// fileServer(r, "/css", http.Dir(css))
+	// fileServer(r, "/js", http.Dir(js))
 }
 
 func fileServer(r chi.Router, path string, root http.FileSystem) {
