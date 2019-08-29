@@ -28,9 +28,9 @@ func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 	cookie := http.Cookie{
 		Name:   "ninjaToken",
 		Value:  tokenString,
-		MaxAge: 600,
+		MaxAge: 6000,
 		Path:   "/",
-		Domain: os.Getenv("DOMAIN_NAME"),
+		// Domain: os.Getenv("DOMAIN_NAME"),
 		Expires: now.AddDate(0, 1, 0),
 	}
 	r.AddCookie(&cookie)
