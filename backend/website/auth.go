@@ -28,7 +28,7 @@ func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 		Value:  tokenString,
 		MaxAge: 600,
 		Path:   "/",
-		Domain: fmt.Sprintf("http://%s", os.Getenv("DOMAIN_NAME")),
+		Domain: fmt.Sprintf("https://%s", os.Getenv("DOMAIN_NAME")),
 	}
 
 	http.SetCookie(w, &cookie)
