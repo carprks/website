@@ -23,12 +23,17 @@ func saveJWT(w http.ResponseWriter, r *http.Request, lr loginResponse) {
 		fmt.Println(fmt.Errorf("signing err: %v", err))
 	}
 
-	http.SetCookie(w, &http.Cookie{
+	cookie := http.Cookie{
 		Name:   "ninjaToken",
 		Value:  tokenString,
 		MaxAge: 600,
 		Path:   "/",
-	})
+	}
+
+	http.SetCookie(w, &cookie)
+
+	fmt.Println(fmt.Sprintf("cookie: %v", cookie))
+	fmt.Println(fmt.Sprintf("Signing Secret: %v", os.Getenv("SIGNING_SECRET")))
 }
 
 func deleteJWT(w http.ResponseWriter) {
