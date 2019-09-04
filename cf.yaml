@@ -44,7 +44,7 @@ Parameters:
   Price:
     Type: String
     Default: PriceClass_All
-  AuthKey:
+  AuthKeyAccount:
     Type: String
   AccountService:
     Type: String
@@ -170,8 +170,8 @@ Resources:
               Value: 80
             - Name: SERVICE_NAME
               Value: !Ref ServiceName
-            - Name: AUTH_KEY
-              Value: !Ref AuthKey
+            - Name: AUTH_KEY_ACCOUNT
+              Value: !Ref AuthKeyAccount
             - Name: SERVICE_ACCOUNT
               Value: !Ref AccountService
             - Name: SIGNING_SECRET

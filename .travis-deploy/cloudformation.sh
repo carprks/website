@@ -61,7 +61,7 @@ cloudFormation()
                 ParameterKey=SubnetTwo,ParameterValue=$AWS_SUBNET_TWO \
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
                 ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
-                ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
+                ParameterKey=AuthKeyAccount,ParameterValue=$AUTH_KEY_ACCOUNT \
                 ParameterKey=AccountService,ParameterValue=$SERVICE_ACCOUNT \
                 ParameterKey=SigningSecret,ParameterValue=$SIGNING_SECRET
     else
@@ -87,7 +87,7 @@ cloudFormation()
                 ParameterKey=SubnetTwo,ParameterValue=$AWS_SUBNET_TWO \
                 ParameterKey=SubnetThree,ParameterValue=$AWS_SUBNET_THREE \
                 ParameterKey=Price,ParameterValue=$AWS_PRICE_CLASS \
-                ParameterKey=AuthKey,ParameterValue=$AUTH_KEY \
+                ParameterKey=AuthKeyAccount,ParameterValue=$AUTH_KEY_ACCOUNT \
                 ParameterKey=AccountService,ParameterValue=$ACCOUNT_SERVICE \
                 ParameterKey=SigningSecret,ParameterValue=$SIGNING_SECRET
     fi
@@ -115,7 +115,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
     AWS_SUBNET_THREE=$DEV_AWS_SUBNET_THREE
     AWS_PRICE_CLASS=$DEV_AWS_PRICE_CLASS
     ACCOUNT_SERVICE=$DEV_ACCOUNT_SERVICE
-    AUTH_KEY=$DEV_AUTH_KEY
+    AUTH_KEY_ACCOUNT=$DEV_AUTH_KEY_ACCOUNT
     SIGNING_SECRET=$DEV_SIGNING_SECRET
 
     echo "Deploy Dev"
@@ -138,7 +138,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" ]] || [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; t
             AWS_LOADBALANCER_ADDRESS=$LIVE_AWS_LOADBALANCER_ADDRESS
             AWS_LOADBALANCER_LISTENER_ARN=$LIVE_AWS_LOADBALANCER_LISTERNER_ARN
             ACCOUNT_SERVICE=$LIVE_ACCOUNT_SERVICE
-            AUTH_KEY=$LIVE_AUTH_KEY
+            AUTH_KEY_ACCOUNT=$LIVE_AUTH_KEY_ACCOUNT
             SIGNING_SECRET=$LIVE_SIGNING_SECRET
 
             echo "Deploy Live"

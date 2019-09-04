@@ -83,7 +83,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println(fmt.Sprintf("req err: %v", err))
 		}
-		req.Header.Set("X-Authorization", os.Getenv("AUTH_KEY"))
+		req.Header.Set("X-Authorization", os.Getenv("AUTH_KEY_ACCOUNT"))
 		req.Header.Set("Content-Type", "application/json")
 		client := &http.Client{}
 		resp, err := client.Do(req)
@@ -190,7 +190,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println(fmt.Sprintf("req err: %v", err))
 		}
-		req.Header.Set("X-Authorization", os.Getenv("AUTH_KEY"))
+		req.Header.Set("X-Authorization", os.Getenv("AUTH_KEY_ACCOUNT"))
 		req.Header.Set("Content-Type", "application/json")
 		client := &http.Client{}
 		resp, err := client.Do(req)
